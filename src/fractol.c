@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 16:28:44 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:49:27 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	draw(t_fractol *ft)
 		y = 0;
 		while (y < ft->height)
 		{
-			ft->draw(ft, x, y);
+			if (y % 2 || x % 2 || y == 0 || x == 0)
+				ft->draw(ft, x, y);
+			else
+				set_pixel(&ft->img, x, y, get_pixel(&ft->img, x - 1, y - 1));
 			y += 1;
 		}
 		x += 1;
@@ -88,5 +91,8 @@ int	main(int ac, char **av)
 	draw(&ft);
 	keyhook(&ft);
 	mlx_loop(ft.mlx);
+	mlx_destroy_image(ft.mlx, ft.img.ptr);
+	mlx_destroy_display(ft.mlx);
+	free(ft.mlx);
 	return (0);
 }
