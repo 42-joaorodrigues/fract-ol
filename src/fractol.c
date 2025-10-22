@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 14:52:38 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:26:57 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,16 @@ void	draw(t_fractol *ft)
 	int	y;
 
 	printf("draw called\n");
-	x = -1;
-	while (++x < ft->width)
+	x = 0;
+	while (x < ft->width)
 	{
-		y = -1;
-		while (++y < ft->height)
+		y = 0;
+		while (y < ft->height)
+		{
 			ft->draw(ft, x, y);
+			y += 1;
+		}
+		x += 1;
 	}
 	mlx_put_image_to_window(ft->mlx, ft->win, ft->img.ptr, 0, 0);
 }

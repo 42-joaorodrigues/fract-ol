@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 14:56:46 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:15:36 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_fractol
 	int			s_press;
 	int			a_press;
 	int			d_press;
+	int			moving;
 }				t_fractol;
 
 // fractol
