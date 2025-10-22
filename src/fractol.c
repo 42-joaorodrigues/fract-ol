@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 17:08:05 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:20:51 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ void	draw_mandelbrot(t_fractol *ft, int x, int y)
 	// 	set_pixel(&ft->img, x, y, 0x000000);
 	// else
 	// 	set_pixel(&ft->img, x, y, 0xFFFFFF);
-	int color = (i * 255 / ft->max_iterations);
-	set_pixel(&ft->img, x, y, (color << 16) | (color << 8) | color);
+	int color = (int)(255.0 * i / ft->max_iterations);
+	int r = (color * 9) % 256;
+	int g = (color * 2) % 256;
+	int b = (color * 5) % 256;
+	set_pixel(&ft->img, x, y, (r << 16) | (g << 8) | b);
 }
 
 void	draw(t_fractol *ft)
