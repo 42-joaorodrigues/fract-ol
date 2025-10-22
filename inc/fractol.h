@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 15:15:36 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:29:06 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 #define D_KEY 100
 
 typedef struct	s_vector {
-	double		x;
-	double		y;
+	float		x;
+	float		y;
 }				t_vector;
 
 typedef struct	s_img {
@@ -63,7 +63,8 @@ void			keyhook(t_fractol *ft);
 
 // util
 void			init(t_fractol *ft);
-void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			set_pixel(t_img *img, int x, int y, int color);
+unsigned int	get_pixel(t_img *img, int x, int y);
 
 
 #endif
