@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 16:29:06 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:08:13 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 #define D_KEY 100
 
 typedef struct	s_vector {
-	float		x;
-	float		y;
+	double		x;
+	double		y;
 }				t_vector;
 
 typedef struct	s_img {

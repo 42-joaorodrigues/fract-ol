@@ -10,7 +10,7 @@ obj/%.o: %.c
 	cc $(FLAGS) -c $< -o $@ -I inc -I mlx
 
 $(NAME): $(OBJ)
-	cc $^ -o $@ -L mlx -l mlx -l Xext -l X11
+	cc $^ -o $@ -L mlx -l mlx -l Xext -l X11 -l m
 
 clean:
 	rm -rf obj

@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:35 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 16:28:17 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:07:11 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "fractol.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 int	x_button(void *param)
 {
@@ -78,6 +79,9 @@ int	mousehook(int button, int x, int y, t_fractol *ft)
 		ft->zoom *= 0.9;
 	else
 		return (1);
+	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
+	if (ft->max_iterations > 1000)
+		ft->max_iterations = 1000;
 	draw(ft);
 	return (0);
 }
