@@ -1,4 +1,5 @@
 NAME = fractol
+FLAGS = -Wall -Wextra -Werror -O3 -march=native -ffast-math
 SRC = src/fractol.c src/util.c src/keyhook.c
 OBJ = $(SRC:%.c=obj/%.o)
 
@@ -6,7 +7,7 @@ all: $(NAME)
 
 obj/%.o: %.c
 	mkdir -p $(dir $@)
-	cc -Wall -Wextra -Werror -c $< -o $@ -I inc -I mlx
+	cc $(FLAGS) -c $< -o $@ -I inc -I mlx
 
 $(NAME): $(OBJ)
 	cc $^ -o $@ -L mlx -l mlx -l Xext -l X11
