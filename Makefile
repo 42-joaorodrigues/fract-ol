@@ -1,0 +1,23 @@
+NAME = fractol
+SRC = src/fractol.c src/util.c src/keyhook.c
+OBJ = $(SRC:%.c=obj/%.o)
+
+all: $(NAME)
+
+obj/%.o: %.c
+	mkdir -p $(dir $@)
+	cc -Wall -Wextra -Werror -c $< -o $@ -I inc -I mlx
+
+$(NAME): $(OBJ)
+	cc $^ -o $@ -L mlx -l mlx -l Xext -l X11
+
+clean:
+	rm -rf obj
+
+fclean: clean
+	rm -rf $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
+
