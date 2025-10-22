@@ -6,23 +6,16 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 17:08:13 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 20:01:58 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 #define FRACTOL_H
 
-#define WIN_HEIGHT 900
-#define WIN_WIDTH 900
-
+#define SIZE 900
 #define MOVESPEED 0.1
-
 #define ESC_KEY 65307
-#define W_KEY 119
-#define A_KEY 97
-#define S_KEY 115
-#define D_KEY 100
 
 typedef struct	s_vector {
 	double		x;
@@ -37,7 +30,7 @@ typedef struct	s_img {
 	int			endian;
 }				t_img;
 
-typedef struct s_fractol
+typedef struct	s_fractol
 {
 	void		*mlx;
 	void		*win;
@@ -52,19 +45,13 @@ typedef struct s_fractol
 	int			s_press;
 	int			a_press;
 	int			d_press;
-	int			moving;
 }				t_fractol;
-
-// fractol
-void			draw(t_fractol *ft);
-
-// keyhook
-void			keyhook(t_fractol *ft);
 
 // util
 void			init(t_fractol *ft);
+int				ft_exit(t_fractol *ft);
+int				esc_keypress(int key, t_fractol *ft);
 void			set_pixel(t_img *img, int x, int y, int color);
-unsigned int	get_pixel(t_img *img, int x, int y);
 
 
 #endif

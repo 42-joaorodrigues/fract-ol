@@ -1,6 +1,6 @@
 NAME = fractol
 FLAGS = -Wall -Wextra -Werror -O3 -march=native -ffast-math
-SRC = src/fractol.c src/util.c src/keyhook.c
+SRC = src/fractol.c src/util.c
 OBJ = $(SRC:%.c=obj/%.o)
 
 all: $(NAME)

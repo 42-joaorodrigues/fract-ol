@@ -6,14 +6,14 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 20:08:47 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 19:41:10 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
+#include <X11/X.h>
 #include "mlx.h"
 #include "fractol.h"
 
@@ -49,31 +49,14 @@ void	draw(t_fractol *ft)
 	int	x;
 	int	y;
 
-	x = -1;
+	x = 0;
 	while (++x < ft->width)
 	{
-		y = -1;
+		y = 0;
 		while (++y < ft->height)
 			ft->draw(ft, x, y);
 	}
 	mlx_put_image_to_window(ft->mlx, ft->win, ft->img.ptr, 0, 0);
-}
-
-int	mousehook(int button, int x, int y, t_fractol *ft)
-{
-	(void)x;
-	(void)y;
-	if (button == 4)
-		ft->zoom *= 1.1;
-	else if (button == 5)
-		ft->zoom *= 0.9;
-	else
-		return (1);
-	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
-	if (ft->max_iterations > 1000)
-		ft->max_iterations = 1000;
-	draw(ft);
-	return (0);
 }
 
 int	main(int ac, char **av)
@@ -95,9 +78,7 @@ int	main(int ac, char **av)
 	}
 	init(&ft);
 	draw(&ft);
-	mlx_hook(ft.win, 17, 0, ft_exit, &ft);
-	mlx_hook(ft.win, 2, 1L << 0, esc_keypress, &ft);
-	mlx_mouse_hook(ft.win, mousehook, &ft);
+	keyhook(&ft);
 	mlx_loop(ft.mlx);
 	return (0);
 }

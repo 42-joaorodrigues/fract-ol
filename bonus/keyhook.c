@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:27:35 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 17:07:11 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/22 19:37:13 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,8 @@
 #include <stdio.h>
 #include <math.h>
 
-int	x_button(void *param)
-{
-	(void)param;
-	exit(0);
-	return (0);
-}
-
 int	key_press(int key, t_fractol *ft)
 {
-	printf("press key %d\n", key);
 	if (key == ESC_KEY)
 		x_button(NULL);
 	if (key == W_KEY)
@@ -41,7 +33,6 @@ int	key_press(int key, t_fractol *ft)
 
 int	key_release(int key, t_fractol *ft)
 {
-	printf("release key %d\n", key);
 	if (key == W_KEY)
 		ft->w_press = 0;
 	if (key == S_KEY)
@@ -72,7 +63,6 @@ int	mousehook(int button, int x, int y, t_fractol *ft)
 {
 	(void)x;
 	(void)y;
-	printf("button pressed %d\n", button);
 	if (button == 4)
 		ft->zoom *= 1.1;
 	else if (button == 5)
@@ -92,7 +82,7 @@ void	keyhook(t_fractol *ft)
 	ft->s_press = 0;
 	ft->a_press = 0;
 	ft->d_press = 0;
-	mlx_hook(ft->win, 17, 0, x_button, NULL);
+	mlx_hook(ft->win, 17, 0, ft_exit, ft);
 	mlx_hook(ft->win, 2, 1L << 0, key_press, ft);
 	mlx_hook(ft->win, 3, 1L << 1, key_release, ft);
 	mlx_loop_hook(ft->mlx, key_update, ft);
