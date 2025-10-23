@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:25:16 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 15:27:17 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:40:20 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ static int	mousehook(int button, int x, int y, t_fractol *ft)
 	ft->offset.y += old.y - new.y;
 	ft->moving = 1;
 	ft->last_move_ms = ft_time_ms();
+	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
+	if (ft->max_iterations > 1000)
+		ft->max_iterations = 1000;
 	draw(ft);
 	return (0);
 }
