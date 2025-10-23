@@ -6,28 +6,29 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/22 20:08:47 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 08:57:20 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include "mlx.h"
 #include "fractol.h"
+#include "mlx.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-void	mandelbrot(t_fractol *ft, int x, int y)
+static void	mandelbrot(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
 	t_vector	c;
 	float		temp;
 	int			i;
-	
+	int			color;
+
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = (x - ft->width / 2.0) / (0.5 * ft->zoom * ft->width) + ft->offset.x;
-	c.y = (y - ft->height / 2.0) / (0.5 * ft->zoom * ft->height) + ft->offset.y;
+	c.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width) - 0.5;
+	c.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height);
 	i = 0;
 	while (++i <= ft->max_iterations)
 	{
@@ -35,16 +36,14 @@ void	mandelbrot(t_fractol *ft, int x, int y)
 		z.y = 2.0 * z.x * z.y + c.y;
 		z.x = temp;
 		if (z.x * z.x + z.y * z.y > 4)
-			break;
+			break ;
 	}
-	int color = (int)(255.0 * i / ft->max_iterations);
-	int r = (color * 9) % 256;
-	int g = (color * 2) % 256;
-	int b = (color * 5) % 256;
-	set_pixel(&ft->img, x, y, (r << 16) | (g << 8) | b);
+	color = (int)(255.0 * i / ft->max_iterations);
+	set_pixel(&ft->img, x, y, ((color * 9) % 256 << 16) | ((color * 2)
+			% 256 << 8) | (color * 5) % 256);
 }
 
-void	draw(t_fractol *ft)
+static void	draw(t_fractol *ft)
 {
 	int	x;
 	int	y;
@@ -59,7 +58,7 @@ void	draw(t_fractol *ft)
 	mlx_put_image_to_window(ft->mlx, ft->win, ft->img.ptr, 0, 0);
 }
 
-int	mousehook(int button, int x, int y, t_fractol *ft)
+static int	mousehook(int button, int x, int y, t_fractol *ft)
 {
 	(void)x;
 	(void)y;
@@ -79,7 +78,7 @@ int	mousehook(int button, int x, int y, t_fractol *ft)
 int	main(int ac, char **av)
 {
 	t_fractol	ft;
-	
+
 	if (ac != 2)
 	{
 		fprintf(stderr, "error: invalid arguments\n");
