@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 09:23:44 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 09:35:53 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define SIZE 900
 # define MOVESPEED 0.1
 # define ESC_KEY 65307
+# define STABLE_DELAY_MS 200
 
 typedef struct s_vector
 {
@@ -45,6 +46,7 @@ typedef struct s_fractol
 	int			max_iterations;
 	double		zoom;
 	int			moving;
+	size_t  	last_move_ms;
 }				t_fractol;
 
 // util

@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 09:31:42 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 09:36:38 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 
 static void	mandelbrot(t_fractol *ft, int x, int y)
 {
@@ -55,7 +54,7 @@ static void	draw(t_fractol *ft)
 		y = -1;
 		while (++y < ft->height)
 		{
-			if (x != 0 && x & 1)
+			if (ft->moving && x != 0 && x & 1)
 				set_pixel(&ft->img, x, y, get_pixel(&ft->img, x - 1, y));
 			else
 				ft->draw(ft, x, y);
@@ -66,8 +65,6 @@ static void	draw(t_fractol *ft)
 
 static int	mousehook(int button, int x, int y, t_fractol *ft)
 {
-	static long	lastclick = 0;
-	
 	(void)x;
 	(void)y;
 	if (button == 4)
@@ -76,15 +73,23 @@ static int	mousehook(int button, int x, int y, t_fractol *ft)
 		ft->zoom *= 0.9;
 	else
 		return (1);
-	ft->moving = 0;
-	if (ft_time_ms() - lastclick < 200)
-		ft->moving = 1;
-	lastclick = ft_time_ms();
+	ft->moving = 1;
+	ft->last_move_ms = ft_time_ms();
 	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
 	if (ft->max_iterations > 1000)
 		ft->max_iterations = 1000;
 	draw(ft);
 	return (0);
+}
+
+static int moving_update(t_fractol *ft)
+{
+    if (ft->moving && ft_time_ms() - ft->last_move_ms > STABLE_DELAY_MS)
+    {
+        ft->moving = 0;
+        draw(ft);
+    }
+    return (0);
 }
 
 int	main(int ac, char **av)
@@ -109,6 +114,7 @@ int	main(int ac, char **av)
 	mlx_hook(ft.win, 17, 0, ft_exit, &ft);
 	mlx_hook(ft.win, 2, 1L << 0, esc_keypress, &ft);
 	mlx_mouse_hook(ft.win, mousehook, &ft);
+	mlx_loop_hook(ft.mlx, moving_update, &ft);
 	mlx_loop(ft.mlx);
 	return (0);
 }
