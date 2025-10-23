@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 12:53:02 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 13:02:52 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	draw(t_fractol *ft)
 
 int	handle_args(int ac, char **av, t_fractol *ft)
 {
+	ft->julia_cx = 0;
+	ft->julia_cy = 0;
 	if (ac >= 2 && strcmp(av[1], "mandelbrot") == 0)
 		ft->draw = mandelbrot;
 	else if (ac >= 2 && strcmp(av[1], "julia") == 0)
