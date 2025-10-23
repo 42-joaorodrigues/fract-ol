@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 11:13:22 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:53:02 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	julia(t_fractol *ft, int x, int y)
 
 	z.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width);
 	z.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height);
-	c.x = -0.766;
-	c.y = -0.0999;
+	c.x = ft->julia_cx;
+	c.y = ft->julia_cy;
 	i = 0;
 	while (++i <= ft->max_iterations)
 	{
@@ -38,7 +38,7 @@ static void	julia(t_fractol *ft, int x, int y)
 			break ;
 	}
 	color = (int)(255.0 * i / ft->max_iterations);
-	set_pixel(&ft->img, x, y, ((color * 2) % 256 << 16) | ((color *9)
+	set_pixel(&ft->img, x, y, ((color * 2) % 256 << 16) | ((color * 9)
 			% 256 << 8) | (color * 3) % 256);
 }
 
@@ -88,20 +88,37 @@ void	draw(t_fractol *ft)
 	mlx_put_image_to_window(ft->mlx, ft->win, ft->img.ptr, 0, 0);
 }
 
+int	handle_args(int ac, char **av, t_fractol *ft)
+{
+	if (ac >= 2 && strcmp(av[1], "mandelbrot") == 0)
+		ft->draw = mandelbrot;
+	else if (ac >= 2 && strcmp(av[1], "julia") == 0)
+	{
+		if (ac != 4)
+		{
+			fprintf(stderr, "usage: julia <real> <imaginary>\n");
+			return (1);
+		}
+		ft->draw = julia;
+		ft->julia_cx = atof(av[2]);
+		ft->julia_cy = atof(av[3]);
+	}
+	else
+	{
+		fprintf(stderr, "error: choose a valid fractal:\n");
+		fprintf(stderr, " mandelbrot\n");
+		fprintf(stderr, " julia <real> <imaginary>\n");
+		return (1);
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_fractol	ft;
 
-	if (ac != 2 || (strcmp(av[1], "mandelbrot") != 0 && strcmp(av[1],
-				"julia") != 0))
-	{
-		fprintf(stderr, "error: choose a valid fractal:\n");
-		fprintf(stderr, "- mandelbrot\n- julia\n");
+	if (handle_args(ac, av, &ft) != 0)
 		return (1);
-	}
-	ft.draw = mandelbrot;
-	if (strcmp(av[1], "julia") == 0)
-		ft.draw = julia;
 	init(&ft);
 	draw(&ft);
 	keyhook(&ft);

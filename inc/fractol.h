@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 11:07:21 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:44:29 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ typedef struct s_fractol
 	int			width;
 	int			height;
 	void		(*draw)(struct s_fractol *ft, int x, int y);
+	float		julia_cx;
+	float		julia_cy;
 	int			max_iterations;
-	double		zoom;
+	float		zoom;
 	int			moving;
 	size_t		last_move_ms;
 }				t_fractol;
