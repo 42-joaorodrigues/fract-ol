@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 13:08:55 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 14:03:32 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 #include "mlx.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,14 +20,14 @@ static void	julia(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
 	t_vector	c;
-	float		temp;
+	double		temp;
 	int			i;
 	int			color;
 
-	z.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width);
-	z.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height);
-	c.x = ft->julia_cx;
-	c.y = ft->julia_cy;
+	z.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width) + ft->offset.x;
+	z.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height) + ft->offset.y;
+	c.x = ft->julia_c.x;
+	c.y = ft->julia_c.y;
 	i = 0;
 	while (++i <= ft->max_iterations)
 	{
@@ -38,22 +38,22 @@ static void	julia(t_fractol *ft, int x, int y)
 			break ;
 	}
 	color = (int)(255.0 * i / ft->max_iterations);
-	set_pixel(&ft->img, x, y, ((color * 2) % 256 << 16) | ((color * 9)
-			% 256 << 8) | (color * 3) % 256);
+	set_pixel(&ft->img, x, y, ((color * 2) % 256 << 16) | ((color * 3)
+			% 256 << 8) | (color * 4) % 256);
 }
 
 static void	mandelbrot(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
 	t_vector	c;
-	float		temp;
+	double		temp;
 	int			i;
 	int			color;
 
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width) - 0.766;
-	c.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height) - 0.0999;
+	c.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width) - 0.766 + ft->offset.x;
+	c.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height) - 0.0999 + ft->offset.y;
 	i = 0;
 	while (++i <= ft->max_iterations)
 	{
@@ -90,8 +90,8 @@ void	draw(t_fractol *ft)
 
 int	handle_args(int ac, char **av, t_fractol *ft)
 {
-	ft->julia_cx = 0;
-	ft->julia_cy = 0;
+	ft->julia_c.x = 0;
+	ft->julia_c.y = 0;
 	if (ac >= 2 && strcmp(av[1], "mandelbrot") == 0)
 		ft->draw = mandelbrot;
 	else if (ac >= 2 && strcmp(av[1], "julia") == 0)
@@ -102,8 +102,8 @@ int	handle_args(int ac, char **av, t_fractol *ft)
 			return (1);
 		}
 		ft->draw = julia;
-		ft->julia_cx = atof(av[2]);
-		ft->julia_cy = atof(av[3]);
+		ft->julia_c.x = atof(av[2]);
+		ft->julia_c.y = atof(av[3]);
 	}
 	else
 	{

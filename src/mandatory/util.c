@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:46:34 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 12:55:26 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 13:49:52 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	init(t_fractol *ft)
 	ft->img.ptr = mlx_new_image(ft->mlx, ft->width, ft->height);
 	ft->img.addr = mlx_get_data_addr(ft->img.ptr, &ft->img.bits_per_pixel,
 			&ft->img.line_length, &ft->img.endian);
-	if (ft->julia_cx > 2.0)
-		ft->julia_cx = 2.0;
-	if (ft->julia_cx < -2.0)
-		ft->julia_cx = -2.0;
-	if (ft->julia_cy > 2.0)
-		ft->julia_cy = 2.0;
-	if (ft->julia_cy < -2.0)
-		ft->julia_cy = 2.0;
+	if (ft->julia_c.x > 2.0)
+		ft->julia_c.x = 2.0;
+	if (ft->julia_c.x < -2.0)
+		ft->julia_c.x = -2.0;
+	if (ft->julia_c.y > 2.0)
+		ft->julia_c.y = 2.0;
+	if (ft->julia_c.y < -2.0)
+		ft->julia_c.y = 2.0;
 	ft->zoom = 1.0;
 	ft->max_iterations = 100;
 	ft->moving = 0;
