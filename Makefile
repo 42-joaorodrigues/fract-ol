@@ -14,13 +14,13 @@ bonus: $(BNAME)
 
 obj/%.o: %.c
 	mkdir -p $(dir $@)
-	cc $(FLAGS) -c $< -o $@ -I inc -I mlx
+	cc $(FLAGS) -c $< -o $@ -I inc -I ccmlx
 
 $(NAME): $(OBJ)
-	cc $^ -o $@ -L mlx -l mlx -l Xext -l X11 -l m
+	cc $^ -o $@ -L ccmlx -l mlx -l Xext -l X11 -l m
 
 $(BNAME): $(BOBJ)
-	cc $^ -o $@ -L mlx -l mlx -l Xext -l X11 -l m
+	cc $^ -o $@ -L ccmlx -l mlx -l Xext -l X11 -l m
 
 clean:
 	rm -rf obj
