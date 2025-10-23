@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:25:16 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 11:03:44 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 13:08:34 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	moving_update(t_fractol *ft)
 static int	close_window(t_fractol *ft)
 {
 	mlx_destroy_image(ft->mlx, ft->img.ptr);
+	mlx_destroy_window(ft->mlx, ft->win);
 	mlx_destroy_display(ft->mlx);
 	free(ft->mlx);
 	exit(0);

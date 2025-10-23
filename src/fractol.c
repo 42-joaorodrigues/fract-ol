@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 13:02:52 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 13:08:55 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	main(int ac, char **av)
 	keyhook(&ft);
 	mlx_loop(ft.mlx);
 	mlx_destroy_image(ft.mlx, ft.img.ptr);
+	mlx_destroy_window(ft.mlx, ft.win);
 	mlx_destroy_display(ft.mlx);
 	free(ft.mlx);
 	return (0);
