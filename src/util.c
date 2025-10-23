@@ -6,12 +6,13 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:46:34 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 09:23:31 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:07:29 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx.h"
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
@@ -25,17 +26,9 @@ void	init(t_fractol *ft)
 	ft->img.ptr = mlx_new_image(ft->mlx, ft->width, ft->height);
 	ft->img.addr = mlx_get_data_addr(ft->img.ptr, &ft->img.bits_per_pixel,
 			&ft->img.line_length, &ft->img.endian);
-	ft->max_iterations = 100;
 	ft->zoom = 1.0;
-}
-
-int	ft_exit(t_fractol *ft)
-{
-	mlx_destroy_image(ft->mlx, ft->img.ptr);
-	mlx_destroy_display(ft->mlx);
-	free(ft->mlx);
-	exit(0);
-	return (0);
+	ft->max_iterations = 100;
+	ft->moving = 0;
 }
 
 size_t	ft_time_ms(void)
@@ -48,13 +41,6 @@ size_t	ft_time_ms(void)
 	seconds = tv.tv_sec;
 	microseconds = tv.tv_usec;
 	return (seconds * 1000 + microseconds / 1000);
-}
-
-int	esc_keypress(int key, t_fractol *ft)
-{
-	if (key == ESC_KEY)
-		ft_exit(ft);
-	return (0);
 }
 
 void	set_pixel(t_img *img, int x, int y, int color)
@@ -70,5 +56,5 @@ unsigned int	get_pixel(t_img *img, int x, int y)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	return (*(unsigned int*)dst);
+	return (*(unsigned int *)dst);
 }

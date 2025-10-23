@@ -4,6 +4,7 @@
 		"stdio.h": "c",
 		"stdlib.h": "c",
 		"math.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"fractol.h": "c"
 	}
 }
