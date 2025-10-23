@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 08:57:20 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 09:31:42 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 static void	mandelbrot(t_fractol *ft, int x, int y)
 {
@@ -27,8 +28,8 @@ static void	mandelbrot(t_fractol *ft, int x, int y)
 
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width) - 0.5;
-	c.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height);
+	c.x = (x - ft->width / 2.0) / (0.35 * ft->zoom * ft->width) - 0.7655;
+	c.y = (y - ft->height / 2.0) / (0.35 * ft->zoom * ft->height) - 0.1;
 	i = 0;
 	while (++i <= ft->max_iterations)
 	{
@@ -53,13 +54,20 @@ static void	draw(t_fractol *ft)
 	{
 		y = -1;
 		while (++y < ft->height)
-			ft->draw(ft, x, y);
+		{
+			if (x != 0 && x & 1)
+				set_pixel(&ft->img, x, y, get_pixel(&ft->img, x - 1, y));
+			else
+				ft->draw(ft, x, y);
+		}
 	}
 	mlx_put_image_to_window(ft->mlx, ft->win, ft->img.ptr, 0, 0);
 }
 
 static int	mousehook(int button, int x, int y, t_fractol *ft)
 {
+	static long	lastclick = 0;
+	
 	(void)x;
 	(void)y;
 	if (button == 4)
@@ -68,6 +76,10 @@ static int	mousehook(int button, int x, int y, t_fractol *ft)
 		ft->zoom *= 0.9;
 	else
 		return (1);
+	ft->moving = 0;
+	if (ft_time_ms() - lastclick < 200)
+		ft->moving = 1;
+	lastclick = ft_time_ms();
 	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
 	if (ft->max_iterations > 1000)
 		ft->max_iterations = 1000;

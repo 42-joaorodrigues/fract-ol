@@ -6,12 +6,14 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 08:56:56 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 09:23:44 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
+
+#include <stddef.h>
 
 # define SIZE 900
 # define MOVESPEED 0.1
@@ -19,8 +21,8 @@
 
 typedef struct s_vector
 {
-	double		x;
-	double		y;
+	float		x;
+	float		y;
 }				t_vector;
 
 typedef struct s_img
@@ -42,12 +44,15 @@ typedef struct s_fractol
 	void		(*draw)(struct s_fractol *ft, int x, int y);
 	int			max_iterations;
 	double		zoom;
+	int			moving;
 }				t_fractol;
 
 // util
 void			init(t_fractol *ft);
 int				ft_exit(t_fractol *ft);
+size_t			ft_time_ms(void);
 int				esc_keypress(int key, t_fractol *ft);
 void			set_pixel(t_img *img, int x, int y, int color);
+unsigned int	get_pixel(t_img *img, int x, int y);
 
 #endif
