@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 09:36:38 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 09:57:32 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ static int	mousehook(int button, int x, int y, t_fractol *ft)
 	(void)x;
 	(void)y;
 	if (button == 4)
-		ft->zoom *= 1.1;
+		ft->zoom *= 2.0;
 	else if (button == 5)
-		ft->zoom *= 0.9;
+		ft->zoom *= 0.5;
 	else
 		return (1);
 	ft->moving = 1;
