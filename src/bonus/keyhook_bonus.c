@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:25:16 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 14:08:12 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:27:17 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	moving_update(t_fractol *ft)
 	{
 		ft->moving = 0;
 		draw(ft);
+		return (0);
 	}
 	if (ft->w_press)
 		ft->offset.y -= MOVESPEED / ft->zoom;
@@ -51,7 +52,6 @@ static int	close_window(t_fractol *ft)
 
 int	key_press(int key, t_fractol *ft)
 {
-	printf("%d\n", key);
 	if (key == ESC_KEY)
 		close_window(ft);
 	if (key == W_KEY)

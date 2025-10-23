@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/inc/**",
-                "${workspaceFolder}/mlx/**"
+                "${workspaceFolder}/ccmlx/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

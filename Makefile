@@ -29,9 +29,7 @@ fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(BNAME)
 
-re: fclean all
-
-rebonus: fclean bonus
+re: fclean all bonus
 
 .PHONY: all clean fclean re
 
