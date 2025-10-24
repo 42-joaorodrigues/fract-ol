@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:46:34 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 14:00:32 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:37:06 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	init(t_fractol *ft)
 	ft->zoom = 1.0;
 	ft->offset.x = 0.0;
 	ft->offset.y = 0.0;
-	ft->max_iterations = 100;
+	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
 	ft->moving = 0;
+	ft->color_shift = 1;
 }
 
 size_t	ft_time_ms(void)
@@ -51,6 +52,31 @@ size_t	ft_time_ms(void)
 	seconds = tv.tv_sec;
 	microseconds = tv.tv_usec;
 	return (seconds * 1000 + microseconds / 1000);
+}
+
+unsigned int	get_color(t_fractol *ft, int i, int flames)
+{
+	double	t;
+	int		color;
+	int		r;
+	int		g;
+	int		b;
+
+	if (flames)
+	{
+		t = pow((double)i / ft->max_iterations, 0.7);
+		r = (int)(255 * pow(t, 0.5));
+		g = (int)(128 * pow(t, 2));
+		b = (int)(32 * pow(t, 3));
+	}
+	else
+	{
+		color = (int)(255.0 * i / ft->max_iterations);
+		r = (color * (9 + ft->color_shift)) % 256;
+		g = (color * (2 + ft->color_shift)) % 256;
+		b = (color * (5 + ft->color_shift)) % 256;
+	}
+	return ((r << 16) | (g << 8) | b);
 }
 
 void	set_pixel(t_img *img, int x, int y, int color)

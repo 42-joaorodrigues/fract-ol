@@ -1,10 +1,9 @@
 {
+	"C_Cpp.codeAnalysis.runAutomatically": true,
+	"C_Cpp.intelliSenseEngine": "disabled",
+	"C_Cpp.default.compilerPath": "/usr/bin/clang",
 	"files.associations": {
-		"x.h": "c",
-		"stdio.h": "c",
-		"stdlib.h": "c",
-		"math.h": "c",
-		"string.h": "c",
-		"fractol.h": "c"
-	}
+    	"*.h": "c",
+   		"*.c": "c"
+  	},
 }

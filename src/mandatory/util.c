@@ -6,16 +6,16 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:46:34 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 13:49:52 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:26:34 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx.h"
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <math.h>
 
 void	init(t_fractol *ft)
 {
@@ -35,7 +35,7 @@ void	init(t_fractol *ft)
 	if (ft->julia_c.y < -2.0)
 		ft->julia_c.y = 2.0;
 	ft->zoom = 1.0;
-	ft->max_iterations = 100;
+	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
 	ft->moving = 0;
 }
 

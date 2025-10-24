@@ -1,0 +1,7 @@
+CompileFlags:
+  Add:
+    - -I/home/joaopedrorodrigues/42/fract-ol/inc
+    - -I/home/joaopedrorodrigues/42/fract-ol/ccmlx
+    - -Wall
+    - -Wextra
+    - -Werror

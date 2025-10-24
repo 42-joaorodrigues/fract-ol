@@ -6,14 +6,14 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:25:16 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 13:08:34 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:26:15 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx.h"
-#include <math.h>
 #include <stdlib.h>
+#include <math.h>
 
 static int	moving_update(t_fractol *ft)
 {
@@ -54,6 +54,7 @@ static int	mousehook(int button, int x, int y, t_fractol *ft)
 		return (1);
 	ft->moving = 1;
 	ft->last_move_ms = ft_time_ms();
+	ft->max_iterations = 50 + (int)(20 * log10(ft->zoom));
 	draw(ft);
 	return (0);
 }

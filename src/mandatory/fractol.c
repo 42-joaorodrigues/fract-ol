@@ -6,21 +6,21 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 13:49:34 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:33:15 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "helper.h"
 #include "mlx.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
 
 static void	julia(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
 	t_vector	c;
-	float		temp;
+	long double	temp;
 	int			i;
 	int			color;
 
@@ -46,7 +46,7 @@ static void	mandelbrot(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
 	t_vector	c;
-	float		temp;
+	long double	temp;
 	int			i;
 	int			color;
 
@@ -92,24 +92,24 @@ int	handle_args(int ac, char **av, t_fractol *ft)
 {
 	ft->julia_c.x = 0;
 	ft->julia_c.y = 0;
-	if (ac >= 2 && strcmp(av[1], "mandelbrot") == 0)
+	if (ac >= 2 && ft_strcmp(av[1], "mandelbrot") == 0)
 		ft->draw = mandelbrot;
-	else if (ac >= 2 && strcmp(av[1], "julia") == 0)
+	else if (ac >= 2 && ft_strcmp(av[1], "julia") == 0)
 	{
 		if (ac != 4)
 		{
-			fprintf(stderr, "usage: julia <real> <imaginary>\n");
+			ft_putstr_fd("usage: julia <real> <imaginary>\n", STDERR_FILENO);
 			return (1);
 		}
 		ft->draw = julia;
-		ft->julia_c.x = atof(av[2]);
-		ft->julia_c.y = atof(av[3]);
+		ft->julia_c.x = ft_atof(av[2]);
+		ft->julia_c.y = ft_atof(av[3]);
 	}
 	else
 	{
-		fprintf(stderr, "error: choose a valid fractal:\n");
-		fprintf(stderr, " mandelbrot\n");
-		fprintf(stderr, " julia <real> <imaginary>\n");
+		ft_putstr_fd("error: choose a valid fractal:\n", STDERR_FILENO);
+		ft_putstr_fd("-> mandelbrot\n", STDERR_FILENO);
+		ft_putstr_fd("-> julia <real> <imaginary>\n", STDERR_FILENO);
 		return (1);
 	}
 	return (0);

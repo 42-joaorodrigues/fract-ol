@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:40:19 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/23 13:49:18 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:36:16 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 typedef struct s_vector
 {
-	float		x;
-	float		y;
+	long double	x;
+	long double	y;
 }				t_vector;
 
 typedef struct s_img
