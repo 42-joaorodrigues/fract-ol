@@ -6,13 +6,12 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:38:22 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/24 11:36:50 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/28 09:24:38 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unistd.h"
 
-// strcmp
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s1 == *s2)

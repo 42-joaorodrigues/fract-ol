@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 18:20:00 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/24 11:38:11 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/28 09:52:57 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "mlx.h"
 #include <math.h>
 
+// Burning Ship Fractal: zₙ₊₁ = (|Re(zₙ)| + i|Im(zₙ)|)² + c
+// Each pixel (x, y) maps to complex c.
+// Start with z = 0 and iterate, taking absolute values before squaring.
+// Stop when |z| > 2 or max_iterations reached.
+// Color represents how fast the "ship" escapes, creating flame-like shapes.
 void	burning_ship(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
@@ -42,6 +47,11 @@ void	burning_ship(t_fractol *ft, int x, int y)
 		set_pixel(&ft->img, x, y, get_color(ft, i, 1));
 }
 
+// Julia Set: zₙ₊₁ = zₙ² + c
+// Each pixel (x, y) maps to complex z₀.
+// c is constant for the whole image.
+// Iterate until |z| > 2 or max_iterations reached.
+// Color depends on how fast it escapes.
 void	julia(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
@@ -70,6 +80,11 @@ void	julia(t_fractol *ft, int x, int y)
 		set_pixel(&ft->img, x, y, get_color(ft, i, 0));
 }
 
+// Mandelbrot Set: zₙ₊₁ = zₙ² + c
+// Each pixel (x, y) maps to complex c.
+// Start with z = 0 and iterate.
+// Stop when |z| > 2 or max_iterations reached.
+// Color shows how quickly it diverges.
 void	mandelbrot(t_fractol *ft, int x, int y)
 {
 	t_vector	z;

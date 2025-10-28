@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 21:13:42 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/24 11:33:15 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/28 09:43:35 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+// Julia Set: zₙ₊₁ = zₙ² + c
+// Each pixel (x, y) maps to complex z₀.
+// c is constant for the whole image.
+// Iterate until |z| > 2 or max_iterations reached.
+// Color depends on how fast it escapes.
 static void	julia(t_fractol *ft, int x, int y)
 {
 	t_vector	z;
@@ -42,6 +47,11 @@ static void	julia(t_fractol *ft, int x, int y)
 			% 256 << 8) | (color * 4) % 256);
 }
 
+// Mandelbrot Set: zₙ₊₁ = zₙ² + c
+// Each pixel (x, y) maps to complex c.
+// Start with z = 0 and iterate.
+// Stop when |z| > 2 or max_iterations reached.
+// Color shows how quickly it diverges.
 static void	mandelbrot(t_fractol *ft, int x, int y)
 {
 	t_vector	z;

@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 13:46:34 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/24 11:37:06 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/28 09:48:50 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ size_t	ft_time_ms(void)
 	return (seconds * 1000 + microseconds / 1000);
 }
 
+// returns a color based on i.
+// if flames is set as 1, the color will be in the red/orange pallete
+// else, the color will be based on the pallette defines by ft->color_shift.
 unsigned int	get_color(t_fractol *ft, int i, int flames)
 {
 	double	t;

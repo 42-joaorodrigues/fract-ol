@@ -6,7 +6,7 @@
 /*   By: joao-alm <joao-alm@student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:25:16 by joao-alm          #+#    #+#             */
-/*   Updated: 2025/10/24 11:37:00 by joao-alm         ###   ########.fr       */
+/*   Updated: 2025/10/28 09:51:56 by joao-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+// called in an mlx loop_hook, it keeps checking if enough time passed 
+// without movement to draw the image in full resolution
 static int	moving_update(t_fractol *ft)
 {
 	if (ft->moving && ft_time_ms() - ft->last_move_ms > STABLE_DELAY_MS)
@@ -36,6 +38,9 @@ static int	close_window(t_fractol *ft)
 	return (0);
 }
 
+// arrow like keys change offset
+// C key changes color pallete
+// activates movement boolean and draws
 int	key_press(int key, t_fractol *ft)
 {
 	if (key == ESC_KEY)
@@ -57,6 +62,9 @@ int	key_press(int key, t_fractol *ft)
 	return (0);
 }
 
+// sets an offset based on the position of the mouse (mouse position zooming)
+// sets moving flag, calculates max iterations based on zoom and
+// draws new image
 static int	mousehook(int button, int x, int y, t_fractol *ft)
 {
 	float		zoom_factor;
